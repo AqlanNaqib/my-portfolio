@@ -6,7 +6,6 @@ import { AnimatedGridPattern } from "@/components/ui/animated-grid-pattern";
 import { Safari } from "@/components/ui/safari";
 import { HyperText } from "@/components/ui/hyper-text";
 import DotGrid from "@/components/ui/dot-grid";
-import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 import {
   FaPython,
   FaReact,
@@ -18,7 +17,6 @@ import {
   FaTrophy,
   FaEnvelope,
   FaPhoneAlt,
-  FaPaperPlane,
   FaRegComment,
   FaRetweet,
   FaHeart,
@@ -55,14 +53,41 @@ const skillIcons = [
 
 const projects = [
   {
+    title: "Nexora – AI Enterprise Intelligence Platform",
+    stack: "Next.js, TypeScript, Python, Supabase, Docker",
+    description:
+      "Building an AI-powered platform that helps organisations securely analyse, organise, and search large collections of documents.",
+    highlight: "In active development",
+    repo: "https://github.com/AqlanNaqib/Nexora",
+    time: "1h",
+  },
+  {
+    title: "Sentry – AI Security Review for Pull Requests",
+    stack: "TypeScript, Node.js, GitHub Actions, OpenAI API",
+    description:
+      "Built a GitHub Action and CLI that reviews pull request diffs for exploitable vulnerabilities like SQL injection, SSRF, and hardcoded secrets, then explains the fix right in the PR.",
+    highlight: "Catches issues pattern-based linters miss and can gate CI on critical findings",
+    repo: "https://github.com/AqlanNaqib/Sentry",
+    time: "3h",
+  },
+  {
+    title: "Lilly CodeForAll – Carer Medication Alert System",
+    stack: "React Native, Expo, FastAPI, Python",
+    description:
+      "Built a carer alert app for an accessibility hackathon so a carer never misses the moment a loved one with vision, mobility, and cognitive needs needs help with medication. Alerts land through flash, sound, vibration, and a spoken message at once.",
+    highlight: "Top 3 Finalist: Lilly CodeForAll Hackathon (Innovate for Accessibility)",
+    repo: "https://github.com/AqlanNaqib",
+    time: "5h",
+  },
+  {
     title: "Retail Odyssey – AI Fashion Assistant",
     stack: "Python, FastAPI, React, TypeScript, Docker, Gemini API",
     description:
       "Built a multi-agent recommendation app with real-time search and personalised fashion suggestions.",
     highlight: "Winner: Best Use of AI Agents on Arm (HackSheffield10)",
-    repo: "https://github.com/AqlanNaqib",
+    repo: "https://github.com/AqlanNaqib/Retail-Odyssey",
     image: "/RetailOdyssey.jpg",
-    time: "2h",
+    time: "1w",
     metrics: { replies: "18", reposts: "42", likes: "310", views: "12.4K" },
   },
   {
@@ -73,7 +98,7 @@ const projects = [
     highlight: "Presented at UKHSA Townhall + 1st place showcase",
     repo: "https://github.com/AqlanNaqib",
     image: "/UKHSA.jpeg",
-    time: "5h",
+    time: "2w",
     metrics: { replies: "9", reposts: "21", likes: "168", views: "7.9K" },
   },
   {
@@ -82,9 +107,9 @@ const projects = [
     description:
       "Developed a full-stack booking platform with CRUD flows and a dashboard for operational insights.",
     highlight: "Reliable relational data model with visual reporting",
-    repo: "https://github.com/AqlanNaqib",
+    repo: "https://github.com/AqlanNaqib/S-M-Hotel-Management-System",
     image: "/S-M-Hotel-Management-System.png",
-    time: "1d",
+    time: "1mo",
     metrics: { replies: "7", reposts: "13", likes: "92", views: "4.6K" },
   },
   {
@@ -93,13 +118,14 @@ const projects = [
     description:
       "Created a multi-currency transfer system with rate updates, account controls, and anti-fraud checks.",
     highlight: "Security-focused transaction design",
-    repo: "https://github.com/AqlanNaqib",
-    time: "2d",
+    repo: "https://github.com/AqlanNaqib/Currency-Transfer-Application",
+    time: "2mo",
     metrics: { replies: "5", reposts: "11", likes: "76", views: "3.8K" },
   },
 ];
 
 const achievements = [
+  "Lilly CodeForAll Hackathon — Top 3 Finalist",
   "HackSheffield10 Winner — Best Use of AI Agents on Arm",
   "Computer Science & Software Engineering Showcase 2026 — First Place",
   "FRSIS 2022 — Gold Medal (International Symposium)",
@@ -163,7 +189,7 @@ export default function Home() {
             <motion.div {...fadeUp} className="space-y-5">
               <div className="flex flex-col gap-2">
                 <p className="badge">Available for Summer Intern 2027</p>
-                <p className="badge">Available for Summer Internship 2026</p>
+                <p className="badge">Looking for Placement 2027</p>
               </div>
               <HyperText as="h1" className="hero-title" duration={900}>
                 Aqlan Naqib
@@ -174,11 +200,6 @@ export default function Home() {
               </p>
 
               <div className="flex flex-wrap items-center gap-3">
-                <a href="/cv.pdf" download>
-                  <InteractiveHoverButton className="cv-hover-btn">
-                    Download CV
-                  </InteractiveHoverButton>
-                </a>
                 <a className="btn-secondary" href="#projects">
                   Explore Projects
                 </a>
@@ -340,24 +361,26 @@ export default function Home() {
 
                 <p className="tweet-highlight">{project.highlight}</p>
 
-                <div className="tweet-actions">
-                  <span className="tweet-action">
-                    <FaRegComment />
-                    <span>{project.metrics.replies}</span>
-                  </span>
-                  <span className="tweet-action">
-                    <FaRetweet />
-                    <span>{project.metrics.reposts}</span>
-                  </span>
-                  <span className="tweet-action">
-                    <FaHeart />
-                    <span>{project.metrics.likes}</span>
-                  </span>
-                  <span className="tweet-action">
-                    <FaChartBar />
-                    <span>{project.metrics.views}</span>
-                  </span>
-                </div>
+                {project.metrics && (
+                  <div className="tweet-actions">
+                    <span className="tweet-action">
+                      <FaRegComment />
+                      <span>{project.metrics.replies}</span>
+                    </span>
+                    <span className="tweet-action">
+                      <FaRetweet />
+                      <span>{project.metrics.reposts}</span>
+                    </span>
+                    <span className="tweet-action">
+                      <FaHeart />
+                      <span>{project.metrics.likes}</span>
+                    </span>
+                    <span className="tweet-action">
+                      <FaChartBar />
+                      <span>{project.metrics.views}</span>
+                    </span>
+                  </div>
+                )}
 
                 <a
                   href={project.repo}
@@ -408,7 +431,7 @@ export default function Home() {
           <div className="contact-spotlight-inner">
             <h2 className="section-title">Contact Me</h2>
             <p className="section-copy mt-3">
-              Open to internship opportunities and software roles.
+              Open to placement and internship opportunities in software engineering.
             </p>
             <div className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               <a href="mailto:aqlannaqib2@gmail.com" className="contact-tile">
@@ -440,14 +463,6 @@ export default function Home() {
               >
                 <FaGithub />
                 <span>GitHub</span>
-              </a>
-              <a href="/cv.pdf" download className="contact-tile cv-contact-tile">
-                <InteractiveHoverButton className="cv-hover-btn cv-hover-btn--small">
-                  <span className="icon-inline">
-                    <FaPaperPlane />
-                    Download CV
-                  </span>
-                </InteractiveHoverButton>
               </a>
             </div>
           </div>

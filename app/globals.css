@@ -294,24 +294,6 @@ body {
   gap: 0.45rem;
 }
 
-.cv-hover-btn {
-  min-width: 150px;
-  justify-content: center;
-}
-
-.cv-hover-btn--small {
-  width: 100%;
-  min-width: 0;
-  padding: 0.68rem 0.9rem;
-  font-size: 0.86rem;
-}
-
-.cv-contact-tile {
-  padding: 0;
-  background: transparent;
-  border-color: transparent;
-}
-
 .btn-secondary {
   color: #e2e8f0;
   border: 1px solid rgba(148, 163, 184, 0.45);
