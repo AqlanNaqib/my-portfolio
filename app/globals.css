@@ -159,7 +159,6 @@ section[id] {
 }
 
 .site-brand span {
-  color: #fff;
   margin-left: 0.3rem;
 }
 
@@ -245,8 +244,8 @@ section[id] {
 }
 
 @media (max-width: 420px) {
-  .site-brand span {
-    display: none;
+  .site-brand {
+    font-size: 1.45rem;
   }
 }
 
