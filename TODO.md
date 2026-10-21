@@ -38,3 +38,11 @@
 - [x] Integrate DotGrid into home section in `app/page.tsx`
 - [x] Add/refine DotGrid styles in `app/globals.css`
 - [ ] Verify final structure and consistency
+
+## Cinematic Redesign
+- [x] Full-screen intro gate with click-to-enter, original Web Audio intro sound, Skip Intro, mute and replay
+- [x] Name reveal + tagline animation, zoom transition into the homepage
+- [x] Streaming-style billboard hero, nav, red accent theme and display typography
+- [x] Projects as horizontal carousel rows with hover previews and a details modal
+- [x] Reduced-motion, keyboard and mobile support
+- [x] Lint, type-check, build and browser test pass

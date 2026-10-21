@@ -1,68 +1,55 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { motion, useMotionValue } from "framer-motion";
+import { useEffect, useSyncExternalStore } from "react";
+
+const QUERY = "(hover: hover) and (pointer: fine)";
+
+function subscribe(onChange: () => void) {
+  const media = window.matchMedia(QUERY);
+  media.addEventListener("change", onChange);
+  return () => media.removeEventListener("change", onChange);
+}
 
 export function SmoothCursor() {
-  const [mounted, setMounted] = useState(false);
-  const [enabled, setEnabled] = useState(false);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [angle, setAngle] = useState(0);
+  // false on the server and on touch devices
+  const enabled = useSyncExternalStore(
+    subscribe,
+    () => window.matchMedia(QUERY).matches,
+    () => false,
+  );
+
+  // Motion values update the DOM directly, so moving the mouse doesn't re-render React.
+  const x = useMotionValue(-100);
+  const y = useMotionValue(-100);
+  const rotate = useMotionValue(0);
 
   useEffect(() => {
-    if (typeof window === "undefined") return undefined;
-
-    setMounted(true);
-    const media = window.matchMedia("(hover: hover) and (pointer: fine)");
-    setEnabled(media.matches);
-
-    const onMediaChange = (event: MediaQueryListEvent) =>
-      setEnabled(event.matches);
-    media.addEventListener("change", onMediaChange);
+    if (!enabled) return undefined;
 
     let lastX = 0;
     let lastY = 0;
 
     const onMove = (e: MouseEvent) => {
-      const currentX = e.clientX;
-      const currentY = e.clientY;
-
-      setPosition({ x: currentX, y: currentY });
-
-      const dx = currentX - lastX;
-      const dy = currentY - lastY;
+      const dx = e.clientX - lastX;
+      const dy = e.clientY - lastY;
+      x.set(e.clientX);
+      y.set(e.clientY);
       if (dx !== 0 || dy !== 0) {
-        setAngle(Math.atan2(dy, dx) * (180 / Math.PI));
+        rotate.set(Math.atan2(dy, dx) * (180 / Math.PI));
       }
-
-      lastX = currentX;
-      lastY = currentY;
+      lastX = e.clientX;
+      lastY = e.clientY;
     };
 
-    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mousemove", onMove, { passive: true });
+    return () => window.removeEventListener("mousemove", onMove);
+  }, [enabled, x, y, rotate]);
 
-    return () => {
-      window.removeEventListener("mousemove", onMove);
-      media.removeEventListener("change", onMediaChange);
-    };
-  }, []);
-
-  if (!mounted || !enabled) return null;
+  if (!enabled) return null;
 
   return (
-    <motion.div
-      aria-hidden="true"
-      className="smooth-cursor"
-      animate={{
-        x: position.x,
-        y: position.y,
-        rotate: angle,
-      }}
-      transition={{
-        type: "tween",
-        duration: 0.02,
-      }}
-    >
+    <motion.div aria-hidden="true" className="smooth-cursor" style={{ x, y, rotate }}>
       <span className="smooth-cursor-dot" />
       <span className="smooth-cursor-ring" />
     </motion.div>
